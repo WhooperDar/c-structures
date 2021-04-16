@@ -22,9 +22,6 @@ void deleteLastNode (struct Node*);
 
 struct Node* deletePosition(struct Node*, int);
 
-struct Node* insertPosition(struct Node*, int);
-
-
 int main(){
 	
 	struct Node* head = NULL;
@@ -73,8 +70,6 @@ int main(){
 	head = deletePosition(head, 3);
 	printLinkList(head);
 	
-	
-
 	return 0;
 }
 
@@ -209,8 +204,4 @@ struct Node* deletePosition(struct Node* head, int index){
 	}
 	
 	return head;
-}
-
-struct Node* insertPosition(struct Node* head, int position){
-	
 }
