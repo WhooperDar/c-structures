@@ -22,6 +22,8 @@ void deleteLastNode (struct Node*);
 
 struct Node* deletePosition(struct Node*, int);
 
+struct Node* reverseLinkedList(struct Node*);
+
 int main(){
 	
 	struct Node* head = NULL;
@@ -66,10 +68,9 @@ int main(){
 	insertAtEnd(10, head);
 	insertAtEnd(11, head);
 	printLinkList(head);
-	
-	head = deletePosition(head, 3);
-	printLinkList(head);
-	
+
+	head = reverseLinkedList(head); 
+	printLinkList(head);	
 	return 0;
 }
 
@@ -202,6 +203,24 @@ struct Node* deletePosition(struct Node* head, int index){
 		free(current);
 		current = NULL;
 	}
+	
+	return head;
+}
+
+struct Node* reverseLinkedList(struct Node* head){
+	
+	struct Node* prev = NULL; 
+	struct Node* next = NULL;
+	
+	while(head != NULL){
+		
+		next = head->next;
+		head->next = prev;
+		prev = head;
+		head = next;
+	} 
+	
+	head = prev;
 	
 	return head;
 }
