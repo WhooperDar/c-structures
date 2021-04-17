@@ -143,7 +143,7 @@ struct Node* deleteFirstNode(struct Node* head){
 	} else {
 		struct Node* temp = head; 
 	
-		head = head->next;
+		head = temp->next;
 		
 		free(temp);
 	}

@@ -13,6 +13,8 @@ void insertAtEnd(struct Node*, int);
 
 struct Node* insertAtBeginning(struct Node*, int); 
 
+struct Node* deleteFirstNode(struct Node*);
+
 int main(){
 	
 	struct Node* head = malloc(sizeof(struct Node));
@@ -33,6 +35,10 @@ int main(){
 	
 	head = insertAtBeginning(head, 125);
 	printDoubly(head);
+	
+	head = deleteFirstNode(head); 
+	printDoubly(head);
+	
 	return 0; 
 }
 
@@ -91,4 +97,14 @@ struct Node* insertAtBeginning(struct Node* head, int element){
 	return head;
 }
 
+struct Node* deleteFirstNode(struct Node* head){
+	
+	struct Node* ptr = head;
+	ptr->prev = NULL;	
+	head = ptr->next; 
+	
+	free(ptr);
+	
+	return head;
+}
 
