@@ -15,6 +15,8 @@ struct Node* insertAtBeginning(struct Node*, int);
 
 struct Node* deleteFirstNode(struct Node*);
 
+struct Node* doublyLastNode(struct Node*);
+
 int main(){
 	
 	struct Node* head = malloc(sizeof(struct Node));
@@ -37,6 +39,9 @@ int main(){
 	printDoubly(head);
 	
 	head = deleteFirstNode(head); 
+	printDoubly(head);
+	
+	head = doublyLastNode(head);
 	printDoubly(head);
 	
 	return 0; 
@@ -104,6 +109,25 @@ struct Node* deleteFirstNode(struct Node* head){
 	head = ptr->next; 
 	
 	free(ptr);
+	
+	return head;
+}
+
+struct Node* doublyLastNode(struct Node* head){
+	
+	struct Node* ptr = head;
+	if(head->next == NULL){
+		head = NULL;
+		free(head);
+	}	
+	
+	while(ptr->next->next != NULL){
+		ptr = ptr->next;
+	}
+	
+	ptr->prev = NULL; 
+	ptr->next = NULL; 
+	free(ptr->next);
 	
 	return head;
 }
