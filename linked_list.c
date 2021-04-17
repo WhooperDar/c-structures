@@ -200,8 +200,8 @@ struct Node* deletePosition(struct Node* head, int index){
 			
 		}	
 		previous->next = current->next;
-		free(current);
 		current = NULL;
+		free(current);
 	}
 	
 	return head;
