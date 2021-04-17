@@ -178,8 +178,8 @@ void deleteLastNode(struct Node* head){ // Second Method (single pointer)
 		while(head->next->next != NULL){
 			head = head->next;
 		}
-		free(head->next); 
 		head->next = NULL;
+		free(head->next); 
 	}
 }
 
