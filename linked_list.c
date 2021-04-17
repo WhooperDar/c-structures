@@ -171,8 +171,8 @@ void deleteLastNode(struct Node* head){ // Second Method (single pointer)
 		printf("\nLinked List is empty!"); 
 	}
 	else if(head->next == NULL){
-		free(head); 
 		head = NULL;
+		free(head); 
 	}
 	else {
 		while(head->next->next != NULL){
