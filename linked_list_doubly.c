@@ -15,7 +15,9 @@ struct Node* insertAtBeginning(struct Node*, int);
 
 struct Node* deleteFirstNode(struct Node*);
 
-struct Node* doublyLastNode(struct Node*);
+struct Node* deleteLastNode(struct Node*);
+
+struct Node* insertAfterPosition(struct Node*, int, int);
 
 int main(){
 	
@@ -41,9 +43,12 @@ int main(){
 	head = deleteFirstNode(head); 
 	printDoubly(head);
 	
-	head = doublyLastNode(head);
+	head = deleteLastNode(head); 
 	printDoubly(head);
 	
+	head = insertAfterPosition(head, 40, 2); 
+	printDoubly(head);
+		
 	return 0; 
 }
 
@@ -113,7 +118,7 @@ struct Node* deleteFirstNode(struct Node* head){
 	return head;
 }
 
-struct Node* doublyLastNode(struct Node* head){
+struct Node* deleteLastNode(struct Node* head){
 	
 	struct Node* ptr = head;
 	if(head->next == NULL){
@@ -129,6 +134,37 @@ struct Node* doublyLastNode(struct Node* head){
 	ptr->next = NULL; 
 	free(ptr->next);
 	
+	return head;
+}
+
+struct Node* insertAfterPosition(struct Node* head, int elementData, int index){
+	
+	struct Node* temp = head; 
+	struct Node* temp2 = NULL; 
+	
+	// New Node 
+	struct Node* newNode = malloc(sizeof(struct Node));
+	newNode->prev = NULL; 
+	newNode->data = elementData;
+	newNode->next = NULL;
+	
+	// Traverse Linked List to locate index
+	while (index != 1){
+		temp = temp->next; 
+		index--; 
+	}	
+		
+	if (temp->next == NULL){ // If index reach last part 
+		temp->next = newNode;
+		newNode->prev = temp;
+		newNode->next = NULL;
+	} else {		
+		temp2 = temp->next;
+		temp->next = newNode;
+		temp2->prev = newNode; 
+		newNode->prev = temp; 
+		newNode->next = temp2; 
+	}
 	return head;
 }
 
