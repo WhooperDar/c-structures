@@ -23,6 +23,8 @@ struct Node* insertAfterPosition(struct Node*, int, int);
 
 struct Node* insertBeforePosition(struct Node*, int, int); 
 
+struct Node* reverseLinkedList(struct Node*);
+
 int main(){
 	
 	struct Node* head = malloc(sizeof(struct Node));
@@ -54,6 +56,9 @@ int main(){
 	printDoubly(head);
 		
 	head = insertBeforePosition(head, 50, 3); 
+	printDoubly(head);
+	
+	head = reverseLinkedList(head);
 	printDoubly(head);
 	
 	return 0; 
@@ -171,6 +176,7 @@ struct Node* insertAfterPosition(struct Node* head, int elementData, int index){
 		newNode->prev = temp;
 		newNode->next = NULL;
 	} else {		
+	
 		temp2 = temp->next;
 		temp->next = newNode;
 		temp2->prev = newNode; 
@@ -201,3 +207,21 @@ struct Node* insertBeforePosition(struct Node* head, int elementData, int index)
 	return head;
 }
 
+struct Node* reverseLinkedList(struct Node* head){
+	struct Node* ptr = head; 
+	struct Node* ptr2 = ptr->next;
+	
+	ptr->next = NULL; 
+	ptr->prev = ptr2;
+	 
+	while( ptr2 != NULL ){	
+		ptr2->prev = ptr2->next;
+		ptr2->next = ptr; 
+		ptr = ptr2; 
+		ptr2 = ptr2->prev;
+	}	
+	
+	head = ptr;
+	
+	return head;
+}
