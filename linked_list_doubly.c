@@ -9,6 +9,8 @@ struct Node{
 
 void printDoubly(struct Node*);
 
+struct Node* createNode(struct Node*, int);
+ 
 void insertAtEnd(struct Node*, int);
 
 struct Node* insertAtBeginning(struct Node*, int); 
@@ -18,6 +20,8 @@ struct Node* deleteFirstNode(struct Node*);
 struct Node* deleteLastNode(struct Node*);
 
 struct Node* insertAfterPosition(struct Node*, int, int);
+
+struct Node* insertBeforePosition(struct Node*, int, int); 
 
 int main(){
 	
@@ -49,6 +53,9 @@ int main(){
 	head = insertAfterPosition(head, 40, 2); 
 	printDoubly(head);
 		
+	head = insertBeforePosition(head, 50, 3); 
+	printDoubly(head);
+	
 	return 0; 
 }
 
@@ -67,13 +74,21 @@ void printDoubly(struct Node * head){
 	}
 }
 
+struct Node* createNode(struct Node* node, int data){
+	node = malloc(sizeof(struct Node*));
+	node->prev = NULL;
+	node->data = data; 
+	node->next = NULL;
+	
+	return node;
+}
+
 void insertAtEnd(struct Node* head, int element){
 	
 	struct Node* ptr = head; 
-	struct Node* newData = malloc(sizeof(struct Node));
-	newData->prev = NULL;
-	newData->data = element;
-	newData->next = NULL;
+	struct Node* newData = NULL; 
+	
+	newData = createNode(newData, element);
 	
 	while( ptr->next != NULL){
 		ptr = ptr->next;
@@ -86,10 +101,9 @@ void insertAtEnd(struct Node* head, int element){
 
 struct Node* insertAtBeginning(struct Node* head, int element){
 	
-	struct Node* temp = malloc(sizeof(struct Node));
-	temp->prev = NULL;
-	temp->data = element; 
-	temp->next = NULL;
+	struct Node* temp = NULL; 
+	
+	temp = createNode(temp, element);
 	
 	struct Node* ptr = head;
 	
@@ -143,10 +157,8 @@ struct Node* insertAfterPosition(struct Node* head, int elementData, int index){
 	struct Node* temp2 = NULL; 
 	
 	// New Node 
-	struct Node* newNode = malloc(sizeof(struct Node));
-	newNode->prev = NULL; 
-	newNode->data = elementData;
-	newNode->next = NULL;
+	struct Node* newNode = NULL; 
+	newNode = createNode(newNode, elementData);
 	
 	// Traverse Linked List to locate index
 	while (index != 1){
@@ -165,6 +177,27 @@ struct Node* insertAfterPosition(struct Node* head, int elementData, int index){
 		newNode->prev = temp; 
 		newNode->next = temp2; 
 	}
+	return head;
+}
+
+struct Node* insertBeforePosition(struct Node* head, int elementData, int index){
+	struct Node* ptr = head; 
+	struct Node* ptr2 = NULL;
+	
+	struct Node* newNode = NULL; 
+	newNode = createNode(newNode, elementData);
+	
+	while(index > 2){
+		ptr = ptr->next; 
+		index--;
+	}	
+	
+	ptr2 = ptr->next;
+	ptr->next = newNode; 
+	ptr2->prev = newNode; 
+	newNode->prev = ptr; 
+	newNode->next = ptr2;  
+		
 	return head;
 }
 
