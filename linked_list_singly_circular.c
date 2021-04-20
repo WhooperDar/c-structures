@@ -12,14 +12,19 @@ struct Node* insertAtBeginning(struct Node*, int);
 
 void printCircularList(struct Node*);
 
+struct Node* insertIntermediate(struct Node*, int, int);
+
 int main(){
-	
-	int data = 4; 
+	 
 	struct Node* tail = NULL; 
 	
-	tail = createSinglyNode(data);
 	tail = insertAtBeginning(tail, 40);
 	tail = insertAtBeginning(tail, 50);
+	tail = insertAtBeginning(tail, 60);
+
+	printCircularList(tail);
+
+	tail = insertIntermediate(tail, 30, 1); 
 	
 	printCircularList(tail);
 	
@@ -37,6 +42,11 @@ struct Node* createSinglyNode(int data){
 struct Node* insertAtBeginning(struct Node* tail, int data){
 	struct Node* newNode = createSinglyNode(data);
 	
+	if(tail == NULL){
+		newNode = createSinglyNode(data); 
+		return newNode; 
+	}
+	
 	newNode->next = tail->next; 
 	tail->next = newNode; 
 	
@@ -44,10 +54,34 @@ struct Node* insertAtBeginning(struct Node* tail, int data){
 }
 
 void printCircularList(struct Node* tail) {
+	printf("\n");
+	
 	struct Node* ptr = tail->next;
 	
 	do {
 		printf("%d -> ", ptr->data);
 		ptr = ptr->next; 
 	} while(ptr != tail->next);
+}
+
+// Insert middle node 
+struct Node* insertIntermediate(struct Node* tail, int data, int index){
+	
+	
+	struct Node* ptr = tail->next;
+	struct Node* newNode = createSinglyNode(data);
+	
+	while(index > 1){
+		ptr = ptr->next;
+		index--;
+	}
+	
+	newNode->next = ptr->next;
+	ptr->next = newNode;
+	
+	if(ptr == tail){
+		tail = tail->next;
+	}
+	
+	return tail;
 }
