@@ -67,7 +67,6 @@ void printCircularList(struct Node* tail) {
 // Insert middle node 
 struct Node* insertIntermediate(struct Node* tail, int data, int index){
 	
-	
 	struct Node* ptr = tail->next;
 	struct Node* newNode = createSinglyNode(data);
 	
