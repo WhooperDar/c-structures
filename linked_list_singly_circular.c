@@ -18,6 +18,8 @@ struct Node* insertAtEndNode(struct Node*, int);
 
 struct Node* createCircularSingly(struct Node*);
 
+void deleteFirstNode(struct Node*); 
+
 int main(){
 	
 	// Examples
@@ -36,7 +38,9 @@ int main(){
 	
 	tail = insertAtEndNode(tail, 10); 
 	printCircularList(tail);
-	
+
+	deleteFirstNode(tail);
+	printCircularList(tail);	
 	return 0; 
 }
 
@@ -138,4 +142,12 @@ struct Node* createCircularSingly(struct Node* tail){
 	}
 	
 	return tail;
+}
+
+void deleteFirstNode(struct Node* tail){ 
+	struct Node* tptr = tail->next;
+	
+	tail->next = tptr->next;  
+	free(tptr); 
+	tptr = NULL; 
 }
