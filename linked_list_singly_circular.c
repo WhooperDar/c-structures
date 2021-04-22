@@ -14,6 +14,8 @@ void printCircularList(struct Node*);
 
 struct Node* insertIntermediate(struct Node*, int, int);
 
+struct Node* insertAtEndNode(struct Node*, int); 
+
 int main(){
 	 
 	struct Node* tail = NULL; 
@@ -26,6 +28,9 @@ int main(){
 
 	tail = insertIntermediate(tail, 30, 1); 
 	
+	printCircularList(tail);
+	
+	tail = insertAtEndNode(tail, 10); 
 	printCircularList(tail);
 	
 	return 0; 
@@ -81,6 +86,31 @@ struct Node* insertIntermediate(struct Node* tail, int data, int index){
 	if(ptr == tail){
 		tail = tail->next;
 	}
+	
+	return tail;
+}
+
+struct Node* insertAtEndNode(struct Node* tail, int data) {
+	struct Node* newNode = createSinglyNode(data);
+	
+	if (tail == NULL){
+		newNode->next = tail->next;
+		tail->next = newNode;
+		
+		return tail;
+	}
+	
+	struct Node* ptr = tail->next; 
+	
+	do {
+		
+		ptr = ptr->next;	
+		
+	} while(ptr != tail->next); 
+	
+	newNode->next = tail->next; 
+	tail->next = newNode; 
+	tail = tail->next;
 	
 	return tail;
 }
