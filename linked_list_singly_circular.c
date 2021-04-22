@@ -16,10 +16,14 @@ struct Node* insertIntermediate(struct Node*, int, int);
 
 struct Node* insertAtEndNode(struct Node*, int); 
 
+struct Node* createCircularSingly(struct Node*);
+
 int main(){
+	
+	// Examples
 	 
 	struct Node* tail = NULL; 
-	
+	tail = createCircularSingly(tail);
 	tail = insertAtBeginning(tail, 40);
 	tail = insertAtBeginning(tail, 50);
 	tail = insertAtBeginning(tail, 60);
@@ -36,6 +40,7 @@ int main(){
 	return 0; 
 }
 
+// Node Creator
 struct Node* createSinglyNode(int data){
 	struct Node* tail = malloc(sizeof(struct Node));
 	tail->data = data;
@@ -44,6 +49,7 @@ struct Node* createSinglyNode(int data){
 	return tail; 
 }
 
+// insert At Beginning 
 struct Node* insertAtBeginning(struct Node* tail, int data){
 	struct Node* newNode = createSinglyNode(data);
 	
@@ -58,6 +64,7 @@ struct Node* insertAtBeginning(struct Node* tail, int data){
 	return tail;
 }
 
+// Print Whole Circular Linked List 
 void printCircularList(struct Node* tail) {
 	printf("\n");
 	
@@ -90,14 +97,12 @@ struct Node* insertIntermediate(struct Node* tail, int data, int index){
 	return tail;
 }
 
+// Insert At the End
 struct Node* insertAtEndNode(struct Node* tail, int data) {
 	struct Node* newNode = createSinglyNode(data);
 	
 	if (tail == NULL){
-		newNode->next = tail->next;
-		tail->next = newNode;
-		
-		return tail;
+		return newNode;
 	}
 	
 	struct Node* ptr = tail->next; 
@@ -111,6 +116,26 @@ struct Node* insertAtEndNode(struct Node* tail, int data) {
 	newNode->next = tail->next; 
 	tail->next = newNode; 
 	tail = tail->next;
+	
+	return tail;
+}
+
+// Whole Circular Linked List 
+struct Node* createCircularSingly(struct Node* tail){
+	int i, data, no_of_nodes = 0; 
+	
+	printf("\nEnter the number of nodes: "); 
+	scanf("%d", &no_of_nodes); 
+	
+	if(no_of_nodes == 0){
+		return tail;
+	}
+	
+	for(i = 0; i < no_of_nodes; i++){
+		printf("Enter node %d: ", i+1);
+		scanf("%d", &data); 
+		tail = insertAtEndNode(tail, data); 
+	}
 	
 	return tail;
 }
