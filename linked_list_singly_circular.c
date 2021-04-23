@@ -20,6 +20,8 @@ struct Node* createCircularSingly(struct Node*);
 
 void deleteFirstNode(struct Node*); 
 
+void deleteLastNode(struct Node*); 
+
 int main(){
 	
 	// Examples
@@ -40,7 +42,11 @@ int main(){
 	printCircularList(tail);
 
 	deleteFirstNode(tail);
-	printCircularList(tail);	
+	printCircularList(tail);
+	
+	deleteLastNode(tail); 
+	printCircularList(tail);
+		
 	return 0; 
 }
 
@@ -150,4 +156,18 @@ void deleteFirstNode(struct Node* tail){
 	tail->next = tptr->next;  
 	free(tptr); 
 	tptr = NULL; 
+}
+
+void deleteLastNode(struct Node* tail){
+	struct Node* head = tail->next;
+	
+	while(head->next != tail){
+		head = head->next;
+	}
+ 
+	head->next = tail->next;
+	tail = head;
+	head = head->next; 
+	head = NULL; 
+	free(head);
 }
