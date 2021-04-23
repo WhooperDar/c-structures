@@ -24,6 +24,8 @@ struct Node* deleteLastNode(struct Node*);
 
 struct Node* deleteNodeAtPosition(struct Node*, int);
 
+int countNodes(struct Node*);
+
 int main(){
 	
 	// Examples
@@ -51,7 +53,9 @@ int main(){
 	
 	tail = deleteNodeAtPosition(tail, 2); 
 	printCircularList(tail);
-			
+	
+	int count = countNodes(tail); 
+	printf("\nNumber of nodes = %d\n", count); 			
 	return 0; 
 }
 
@@ -211,3 +215,14 @@ struct Node* deleteNodeAtPosition(struct Node* tail, int index){
 	return tail; 
 }
 
+int countNodes(struct Node* tail){
+	int count = 0; 
+	struct Node* head = tail->next; 
+	
+	do { 
+		count++; 
+		head = head->next;
+	} while(head != tail->next);
+	
+	return count;
+}
