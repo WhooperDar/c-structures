@@ -20,7 +20,9 @@ struct Node* createCircularSingly(struct Node*);
 
 void deleteFirstNode(struct Node*); 
 
-void deleteLastNode(struct Node*); 
+struct Node* deleteLastNode(struct Node*); 
+
+struct Node* deleteNodeAtPosition(struct Node*, int);
 
 int main(){
 	
@@ -44,9 +46,12 @@ int main(){
 	deleteFirstNode(tail);
 	printCircularList(tail);
 	
-	deleteLastNode(tail); 
+	tail = deleteLastNode(tail); 
 	printCircularList(tail);
-		
+	
+	tail = deleteNodeAtPosition(tail, 2); 
+	printCircularList(tail);
+			
 	return 0; 
 }
 
@@ -151,16 +156,26 @@ struct Node* createCircularSingly(struct Node* tail){
 }
 
 void deleteFirstNode(struct Node* tail){ 
-	struct Node* tptr = tail->next;
-	
-	tail->next = tptr->next;  
-	free(tptr); 
-	tptr = NULL; 
-}
-
-void deleteLastNode(struct Node* tail){
 	struct Node* head = tail->next;
 	
+	tail->next = head->next;  
+	free(head); 
+	head = NULL; 
+}
+
+struct Node* deleteLastNode(struct Node* tail){
+	struct Node* head = tail->next;
+	
+	if(tail == NULL){
+		return tail;
+	}
+	
+	if (tail->next == tail){
+		free(tail); 
+		tail = NULL; 
+		return tail;
+	}
+
 	while(head->next != tail){
 		head = head->next;
 	}
@@ -168,6 +183,31 @@ void deleteLastNode(struct Node* tail){
 	head->next = tail->next;
 	tail = head;
 	head = head->next; 
-	head = NULL; 
 	free(head);
+	head = NULL;
+	
+	return tail; 
 }
+
+struct Node* deleteNodeAtPosition(struct Node* tail, int index){
+	struct Node* head = tail->next;
+	
+	if(index == 1){
+		deleteFirstNode(tail);
+		return tail; 
+	}
+	
+	while(index > 2){
+		head = head->next; 
+		index--;
+	}
+	
+	struct Node* temp = head->next; 
+	
+	head->next = temp->next; 
+	free(temp); 
+	temp = NULL;
+	
+	return tail; 
+}
+
