@@ -12,16 +12,19 @@ int isEmpty(struct StackNode*);
 
 void push(struct StackNode**, int); 
 
+int peek(struct StackNode*); 
+
 int main(){
 	
+	// Examples 
 	struct StackNode* stack = NULL; 
 	
 	push(&stack, 10); 
 	push(&stack, 5);
 	push(&stack, 20); 
-	 
-	printf("%d is the last element\n", pop(&stack));
-		
+	push(&stack, 1000); 
+	printf("\n%d is the last element\n", pop(&stack));
+	printf("peek element is %d", peek(stack));
 	return 0; 
 }
 
@@ -52,9 +55,16 @@ int pop(struct StackNode** root){
 	
 	struct StackNode* temp = *root; 
 	
-	*root = (*root)->next;
+	*root = (*root)->next; 
 	int popped = temp->data; 
 	free(temp);
 	
 	return popped; 
+}
+
+int peek(struct StackNode* root){
+	if(isEmpty(root)){
+		return INT_MIN;
+	}
+	return root->data;
 }
