@@ -14,6 +14,8 @@ void push(struct StackNode**, int);
 
 int peek(struct StackNode*); 
 
+void printNodes(struct StackNode*); 
+
 int main(){
 	
 	// Examples 
@@ -23,8 +25,14 @@ int main(){
 	push(&stack, 5);
 	push(&stack, 20); 
 	push(&stack, 1000); 
-	printf("\n%d is the last element\n", pop(&stack));
-	printf("peek element is %d", peek(stack));
+	
+	printNodes(stack); 
+	
+	printf("\n%d has popped\n", pop(&stack));
+	printf("\npeek element is %d\n", peek(stack));
+	
+	printNodes(stack);
+	
 	return 0; 
 }
 
@@ -67,4 +75,24 @@ int peek(struct StackNode* root){
 		return INT_MIN;
 	}
 	return root->data;
+}
+
+void printNodes(struct StackNode* root){
+	printf("\n");
+	
+	if(root == NULL){
+		printf("Stack is underflow\n"); 
+	}
+	
+	struct StackNode* temp = root; 
+	
+	while(temp != NULL){
+		printf("%d->", temp->data); 
+		temp = temp->next; 
+	}
+	
+	free(temp); 
+	temp = NULL; 
+	
+	printf("\n");
 }
