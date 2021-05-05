@@ -24,7 +24,11 @@ struct Node* deletePosition(struct Node*, int);
 
 struct Node* reverseLinkedList(struct Node*);
 
+struct Node* sort(struct Node*); 
+
 int main(){
+	
+	//Examples
 	
 	struct Node* head = NULL;
 	head = (struct Node*)malloc(sizeof(struct Node)); 
@@ -71,6 +75,9 @@ int main(){
 
 	head = reverseLinkedList(head); 
 	printLinkList(head);	
+	
+	head = sort(head); 
+	printLinkList(head);
 	return 0;
 }
 
@@ -224,4 +231,26 @@ struct Node* reverseLinkedList(struct Node* head){
 	
 	return head;
 }
-
+// Buble Sort
+struct Node* sort(struct Node* head){ 
+	struct Node* ptr = head; 
+	struct Node* index = NULL;
+	
+	int temp; 
+		
+	while(ptr != NULL){
+		index = ptr->next; 
+		
+		while(index != NULL){
+			if(ptr->data > index->data){
+				temp = ptr->data; 
+				ptr->data = index->data; 
+				index->data =temp;
+			}
+			index = index->next;
+		}	
+		ptr = ptr->next; 
+	}
+	
+	return head;
+}
