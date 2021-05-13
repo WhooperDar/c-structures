@@ -1,2 +1,3 @@
 # c-structures
-My journey in c programming data structures
+This is my journey in learning c data structures.
+
