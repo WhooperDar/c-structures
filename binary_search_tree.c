@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// This BST implementation uses
+// double pointers as parameter 
+
 typedef struct treeNode* nodeptr; 
 
 typedef struct treeNode{
@@ -20,7 +23,9 @@ int maxDepth(nodeptr);
 
 void insert(nodeptr* , int); 
 
-nodeptr search(nodeptr root, int); 
+nodeptr search(nodeptr, int); 
+
+void deleteTree(nodeptr*); 
 
 int main(){
 	
@@ -58,6 +63,13 @@ int main(){
 	printf("Height of tree: %d", maxDepth(tree)); 
 	
 	printf("\nNo. of Nodes: %d", size); 
+	
+	deleteTree(&tree); 
+	
+	if(tree == NULL){
+		printf("\nTree is empty"); 
+	}
+	
 	return 0; 
 }
 
@@ -132,5 +144,14 @@ nodeptr search(nodeptr root, int data){
 	}
 	else {
 		return NULL; 
+	}
+}
+
+void deleteTree(nodeptr* root){
+	if(*root != NULL){
+		deleteTree(&(*root)->left); 
+		deleteTree(&(*root)->right); 
+		*root = NULL; 
+		free(*root); 
 	}
 }
